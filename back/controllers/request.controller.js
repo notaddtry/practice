@@ -35,8 +35,6 @@ class RequestController {
     try {
       const data = await requestService.getAllNotClosedAndClientDepartament()
 
-      console.log(data)
-
       res.json(data)
     } catch (e) {
       res.status(400).json(e.message || { message: 'Заявки не найдены' })

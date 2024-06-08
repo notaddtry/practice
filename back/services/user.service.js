@@ -28,7 +28,6 @@ class UserService {
   }
 
   async getOneAttribute({ user_id }) {
-    console.log(user_id)
     try {
       const attr = await pool.query(
         `SELECT * FROM user_attr WHERE user_id = ${user_id};`
@@ -42,7 +41,6 @@ class UserService {
   }
 
   async getAllByDepartament({ departament }) {
-    console.log(departament)
     try {
       const attrubites = await pool.query(
         `SELECT * FROM user_attr WHERE departament = '${departament}';`
