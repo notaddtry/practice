@@ -7,31 +7,36 @@ class UserController {
 
       res.json(data)
     } catch (e) {
-      res.status(400).json(e.message || { message: 'Папка не найдена!' })
+      res.status(400).json(e.message || { message: 'Пользователи не найдены' })
     }
   }
-  // async getOne(req, res) {
-  //   try {
-  //     const data = await folderService.getOne(req.params.id)
-  //     const { folder, messagesInFolder } = data
 
-  //     res.json({ ...folder, messagesInFolder })
-  //   } catch (e) {
-  //     res.status(400).json(e.message || { message: 'Папка не найдена!' })
-  //   }
-  // }
-  async create(req, res) {
+  async getOne(req, res) {
     try {
-      // console.log(req)
-      const data = await userService.create(req.body)
-      res.json(data.rows)
+      const data = await userService.getOne(req.params.user_id)
+
+      res.json(data)
     } catch (e) {
-      res.status(400).json(e.message || { message: 'Пользователь не создан' })
+      res.status(400).json(e.message || { message: 'Пользователь не найден' })
     }
   }
+
+  async getAllByDepartament(req, res) {
+    try {
+      const data = await userService.getAllByDepartament(req.params.departament)
+
+      res.json(data)
+    } catch (e) {
+      res
+        .status(400)
+        .json(
+          e.message || { message: 'Пользователи по данному отделу не найдены' }
+        )
+    }
+  }
+
   async login(req, res) {
     try {
-      // console.log(req)
       const data = await userService.login(req.body)
 
       if (!data.rows.length) {
@@ -44,29 +49,11 @@ class UserController {
     } catch (e) {
       res.status(400).json(
         e.message || {
-          message: 'Не существующее имя пользователя или пароль',
+          message: 'Ошибка',
         }
       )
     }
   }
-  // async update(req, res) {
-  //   try {
-  //     const data = await folderService.update(req)
-
-  //     res.json(data.searchFolder)
-  //   } catch (e) {
-  //     res.status(400).json(e.message || { message: 'Папка не найдена!' })
-  //   }
-  // }
-  // async remove(req, res) {
-  //   try {
-  //     const data = await folderService.remove(req.params.id)
-
-  //     res.json(data.paramsId)
-  //   } catch (e) {
-  //     res.status(400).json(e.message || { message: 'Папка не найдена!' })
-  //   }
-  // }
 }
 
 const userController = new UserController()

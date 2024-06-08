@@ -13,7 +13,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon ./index.js",
-    "db:build": "node ./db/build.js"
+    "db:create": "psql -U postgres -c \"DROP DATABASE practice WITH (FORCE);\" -c \"CREATE DATABASE practice;",
+    "db:build": "npm run db:create && node ./db/build.js"
   },
   "author": "notaddtry",
   "license": "ISC",
