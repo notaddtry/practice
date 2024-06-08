@@ -3,9 +3,13 @@ const requestController = require('../controllers/request.controller.js')
 
 const router = Router()
 
-router.get('/:user_id', requestController.getAllByUser)
 router.get('/', requestController.getAll)
 router.get('/not_closed', requestController.getAllNotClosed)
+router.get(
+  '/not_closed_and_client',
+  requestController.getAllNotClosedAndClientDepartament
+)
+router.get('/user/:user_id', requestController.getAllByUser)
 router.get('/:request_id', requestController.getOne)
 
 router.post('/', requestController.createRequest)

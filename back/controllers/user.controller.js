@@ -13,7 +13,7 @@ class UserController {
 
   async getOne(req, res) {
     try {
-      const data = await userService.getOne(req.params.user_id)
+      const data = await userService.getOne(req.params)
 
       res.json(data)
     } catch (e) {
@@ -23,7 +23,7 @@ class UserController {
 
   async getAllByDepartament(req, res) {
     try {
-      const data = await userService.getAllByDepartament(req.params.departament)
+      const data = await userService.getAllByDepartament(req.params)
 
       res.json(data)
     } catch (e) {

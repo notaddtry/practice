@@ -28,13 +28,43 @@ class RequestService {
     }
   }
 
-  async getAllNotClosedByClientDepartament() {
+  async getAllOpen() {
     try {
-      const notClosedRequests = await this.getAllNotClosed()
-
-      const res = notClosedRequests.filter()
+      const res = await pool.query(`
+        SELECT * FROM requests WHERE status = 'open';
+        `)
 
       return res.rows
+    } catch (error) {
+      console.log(error)
+      throw new Error()
+    }
+  }
+
+  async getAllNotClosedAndClientDepartament() {
+    try {
+      const openRequests = await this.getAllOpen()
+
+      //TODO
+      const persons = await userService.getAllByDepartament({
+        departament: 'client',
+      })
+
+      const personIds = persons.map((person) => person.id)
+
+      const requests = [...openRequests]
+
+      for (const id of personIds) {
+        const requestsWithClientDepartamentOwner = await pool.query(`
+          SELECT * FROM requests WHERE specialist_id = ${id}
+          `)
+
+        requestsWithClientDepartamentOwner.rows.forEach((req) => {
+          requests.push(req)
+        })
+      }
+
+      return requests
     } catch (error) {
       console.log(error)
       throw new Error()
@@ -44,6 +74,8 @@ class RequestService {
   async getAllByUser({ user_id }) {
     try {
       const user = await userService.getOne({ user_id })
+
+      console.log(user)
 
       const userRole = user.role
 
@@ -65,7 +97,7 @@ class RequestService {
         SELECT * FROM requests WHERE id = ${request_id};
         `)
 
-      return res.rows
+      return res.rows[0]
     } catch (error) {
       console.log(error)
       throw new Error()

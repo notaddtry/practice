@@ -13,7 +13,7 @@ class RequestController {
 
   async getAllByUser(req, res) {
     try {
-      const data = await requestService.getAllByUser(req.params.user_id)
+      const data = await requestService.getAllByUser(req.params)
 
       res.json(data)
     } catch (e) {
@@ -31,9 +31,21 @@ class RequestController {
     }
   }
 
+  async getAllNotClosedAndClientDepartament(_, res) {
+    try {
+      const data = await requestService.getAllNotClosedAndClientDepartament()
+
+      console.log(data)
+
+      res.json(data)
+    } catch (e) {
+      res.status(400).json(e.message || { message: 'Заявки не найдены' })
+    }
+  }
+
   async getOne(req, res) {
     try {
-      const data = await requestService.getOne(req.params.request_id)
+      const data = await requestService.getOne(req.params)
 
       res.json(data)
     } catch (e) {

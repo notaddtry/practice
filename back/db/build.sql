@@ -90,13 +90,25 @@ INSERT INTO requests (text, status, user_id) VALUES
   ('Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eius molestias eaque, nihil aliquam provident consequuntur. Minus assumenda cum, illo, blanditiis sequi nemo ex magnam consequatur hic, placeat praesentium quos iusto.', 'open', 1);
 INSERT INTO requests (text, status, user_id, specialist_id,plan_end_time) VALUES 
   ('asdadsasd', 'awaiting', 1, 3, CURRENT_TIMESTAMP + interval '5 day');
+INSERT INTO requests (text, status, user_id, specialist_id,plan_end_time) VALUES 
+  ('fffff', 'close', 1, 2, CURRENT_TIMESTAMP + interval '2 day');
+INSERT INTO requests (text, status, user_id, specialist_id,plan_end_time) VALUES 
+  ('gggggg', 'close', 1, 3, CURRENT_TIMESTAMP + interval '3 day');
 
 INSERT INTO is_seen (request_id) VALUES 
   (1);
 INSERT INTO is_seen (request_id, is_seen_by_user, is_seen_by_specialist) VALUES 
   (2, 'FALSE', 'TRUE');
+INSERT INTO is_seen (request_id, is_seen_by_user, is_seen_by_specialist) VALUES 
+  (3, 'TRUE', 'TRUE');
+INSERT INTO is_seen (request_id, is_seen_by_user, is_seen_by_specialist) VALUES 
+  (3, 'FALSE', 'TRUE');
 
 INSERT INTO comments (text, user_id, request_id) VALUES 
   ('comment1', 3, 2);
+INSERT INTO comments (text, user_id, request_id) VALUES 
+  ('closed?', 2, 3);
+INSERT INTO comments (text, user_id, request_id) VALUES 
+  ('closed?', 3, 4);
 
 COMMIT;

@@ -20,9 +20,7 @@ class UserService {
 
       const attr = await this.getOneAttribute({ user_id })
 
-      const res = { ...user.rows, ...attr.rows }
-
-      return res
+      return { ...user.rows[0], ...attr }
     } catch (error) {
       console.log(error)
       throw new Error()
@@ -30,12 +28,13 @@ class UserService {
   }
 
   async getOneAttribute({ user_id }) {
+    console.log(user_id)
     try {
       const attr = await pool.query(
         `SELECT * FROM user_attr WHERE user_id = ${user_id};`
       )
 
-      return attr.rows
+      return attr.rows[0]
     } catch (error) {
       console.log(error)
       throw new Error()
@@ -43,17 +42,18 @@ class UserService {
   }
 
   async getAllByDepartament({ departament }) {
+    console.log(departament)
     try {
       const attrubites = await pool.query(
-        `SELECT * FROM user_attr WHERE departament = ${departament};`
+        `SELECT * FROM user_attr WHERE departament = '${departament}';`
       )
 
-      const usersIds = attrubites.rows[3].map((attr) => attr.user_id)
+      const usersIds = attrubites.rows.map((attr) => attr.user_id)
 
       let users = []
 
       for (const id of usersIds) {
-        const user = await this.getOne({ id })
+        const user = await this.getOne({ user_id: id })
         users.push(user)
       }
 
