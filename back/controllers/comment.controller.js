@@ -3,7 +3,6 @@ const commentService = require('../services/comment.service.js')
 class CommentController {
   async getAll(req, res) {
     try {
-      console.log(req.params.request_id)
       const data = await commentService.getAll(req.params)
 
       res.json(data)
