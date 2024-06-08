@@ -11,5 +11,5 @@ password in terminal must be in your .env file
 
 after run "npm run dev"
 
-front is actualy in "[localhost](http://localhost:5173)"
-back is actualy in "[localhost](http://localhost:3000)"
+front is actualy in "http://localhost:5173"
+back is actualy in "http://localhost:3000"
