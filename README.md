@@ -7,6 +7,8 @@ need to install postgres and node in your device
 create .env file in main directory and pass data likely from .env.example
 
 then in main directory run "npm run db:build"
+password in terminal must be in your .env file
+
 after run "npm run dev"
 
 front is actualy in "[localhost](http://localhost:5173)"
