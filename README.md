@@ -3,10 +3,11 @@ need to install postgres and node in your device
 1. npm i
 2. cd ../back npm i
 3. cd ../front npm i
+4. cd ..
 
-create .env file in main directory and pass data likely from .env.example
+create .env file in back directory and pass data likely from .env.example
 
-then in main directory run "npm run db:build"
+then in main directory run "npm run db:build" then you must write your db password in terminal.
 password in terminal must be in your .env file
 
 after run "npm run dev"
