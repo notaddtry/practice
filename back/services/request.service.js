@@ -229,6 +229,10 @@ class RequestService {
         UPDATE requests SET specialist_id = ${specialist_id} WHERE id = ${request_id} RETURNING id;
         `)
 
+      await pool.query(`
+         UPDATE is_seen SET is_seen_by_specialist = FALSE WHERE request_id = ${request_id};
+        `)
+
       return res.rows[0].id
     } catch (error) {
       console.log(error)

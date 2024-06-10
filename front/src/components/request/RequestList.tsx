@@ -110,7 +110,17 @@ export default function RequestList() {
   }, [JSON.stringify(requests), user?.id])
 
   if (!requests.length) {
-    return <Typography>Нет заявок</Typography>
+    return (
+      <>
+        <Typography>Нет заявок</Typography>
+        {user?.role === 'user' && (
+          <>
+            <Button onClick={handleClickOpen}>Создать заявку</Button>
+            <CreateRequestDialog open={open} handleClose={handleClose} />
+          </>
+        )}
+      </>
+    )
   }
 
   return (
