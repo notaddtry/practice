@@ -1,6 +1,6 @@
 import MailIcon from '@mui/icons-material/Mail'
 import MenuIcon from '@mui/icons-material/Menu'
-import { Badge, Box, IconButton, Toolbar, Typography } from '@mui/material'
+import { Badge, Box, IconButton, Stack, Toolbar } from '@mui/material'
 import { useAuth } from '../../hooks/auth.hook'
 import { AppBar } from '../ui/AppBar'
 import Notification from './Notification'
@@ -28,14 +28,16 @@ export default function Topbar({ onOpen, isOpen, drawerWidth }: Props) {
             <MenuIcon />
           </IconButton>
         )}
-
-        <Typography
-          variant="h6"
-          component="div"
-          sx={{ flexGrow: 1, display: { sm: 'block' } }}
-        >
-          MUI
-        </Typography>
+        <Stack flex={1}>
+          <Box
+            component="img"
+            sx={{
+              height: 50,
+              width: 100,
+            }}
+            src="/assets/logo.png"
+          />
+        </Stack>
 
         {isAuth && (
           <Box sx={{ display: { md: 'flex' } }}>
