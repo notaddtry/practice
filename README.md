@@ -18,15 +18,18 @@ back is actualy in "http://localhost:3000"
 there are 3 users you can access app
 [
   {
-  username: dmitry;
-  password: 12345
+    username: 'dmitry',
+    password: '12345',
+    role: 'user',
   },
   {
-  username: kate;
-  password: 12345
+    username: 'kate',
+    password: '12345',
+    role: 'specialist',
   },
   {
-  username: valeria;
-  password: 12345
+    username: 'valeria',
+    password: '12345',
+    role: 'specialist',
   }
 ]
