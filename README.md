@@ -14,3 +14,19 @@ after run "npm run dev"
 
 front is actualy in "http://localhost:5173"
 back is actualy in "http://localhost:3000"
+
+there are 3 users you can access app
+[
+  {
+  username: dmitry;
+  password: 12345
+  },
+  {
+  username: kate;
+  password: 12345
+  },
+  {
+  username: valeria;
+  password: 12345
+  }
+]
