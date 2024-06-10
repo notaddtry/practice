@@ -1,24 +1,21 @@
-import { Stack } from '@mui/material'
-import { useEffect, useState } from 'react'
+import { List, ListItem } from '@mui/material'
 import type { IComment } from '../../types'
 import Comment from './Comment'
 
 type Props = {
-  requestId: number
+  commentsList: IComment[]
 }
 
-export default function CommentList({ requestId }: Props) {
-  const [comments] = useState<IComment[]>([])
-
-  useEffect(() => {
-    console.log(requestId)
-  })
-
+export default function CommentList({ commentsList }: Props) {
   return (
-    <Stack>
-      {comments.map((comment) => (
-        <Comment key={comment.id} comment={comment} />
-      ))}
-    </Stack>
+    <List>
+      {commentsList.map((comment) => {
+        return (
+          <ListItem key={comment.id}>
+            <Comment comment={comment} />
+          </ListItem>
+        )
+      })}
+    </List>
   )
 }

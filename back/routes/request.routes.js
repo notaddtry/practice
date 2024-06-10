@@ -9,6 +9,7 @@ router.get(
   '/not_closed_and_client',
   requestController.getAllNotClosedAndClientDepartament
 )
+router.get('/study', requestController.getAllStudyDepartament)
 router.get('/user/:user_id', requestController.getAllByUser)
 router.get('/:request_id', requestController.getOne)
 

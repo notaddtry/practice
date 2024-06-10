@@ -19,8 +19,9 @@ CREATE TABLE IF NOT EXISTS users (
 CREATE TABLE IF NOT EXISTS requests (
   id SERIAL PRIMARY KEY,
   text TEXT NOT NULL,
+  title TEXT NOT NULL,
   status STATUS NOT NULL DEFAULT 'open',
-  plan_end_time TIMESTAMP,
+  plan_end_date TIMESTAMP,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   user_id INT,
@@ -85,30 +86,25 @@ INSERT INTO user_attr (user_id, role, departament) VALUES
 INSERT INTO user_attr (user_id, role, departament) VALUES 
   (3, 'specialist', 'client');
 
+INSERT INTO requests (text, title, status, user_id, specialist_id, plan_end_date) VALUES 
+  ('asdadsasd', 'title2', 'awaiting', 1, 3, '2024-06-12T11:45:12.375Z');
+INSERT INTO requests (text, title, status, user_id, specialist_id, plan_end_date) VALUES 
+  ('fffff', 'title3', 'close', 1, 2, '2024-06-11T11:45:12.375Z');
+INSERT INTO requests (text, title, status, user_id, specialist_id, plan_end_date) VALUES 
+  ('gggggg', 'title4', 'close', 1, 3, CURRENT_TIMESTAMP + interval '3 day');
 
-INSERT INTO requests (text, status, user_id) VALUES 
-  ('Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eius molestias eaque, nihil aliquam provident consequuntur. Minus assumenda cum, illo, blanditiis sequi nemo ex magnam consequatur hic, placeat praesentium quos iusto.', 'open', 1);
-INSERT INTO requests (text, status, user_id, specialist_id,plan_end_time) VALUES 
-  ('asdadsasd', 'awaiting', 1, 3, CURRENT_TIMESTAMP + interval '5 day');
-INSERT INTO requests (text, status, user_id, specialist_id,plan_end_time) VALUES 
-  ('fffff', 'close', 1, 2, CURRENT_TIMESTAMP + interval '2 day');
-INSERT INTO requests (text, status, user_id, specialist_id,plan_end_time) VALUES 
-  ('gggggg', 'close', 1, 3, CURRENT_TIMESTAMP + interval '3 day');
-
-INSERT INTO is_seen (request_id) VALUES 
-  (1);
 INSERT INTO is_seen (request_id, is_seen_by_user, is_seen_by_specialist) VALUES 
-  (2, 'FALSE', 'TRUE');
+  (1, 'FALSE', 'TRUE');
 INSERT INTO is_seen (request_id, is_seen_by_user, is_seen_by_specialist) VALUES 
-  (3, 'TRUE', 'TRUE');
+  (2, 'TRUE', 'TRUE');
 INSERT INTO is_seen (request_id, is_seen_by_user, is_seen_by_specialist) VALUES 
   (3, 'FALSE', 'TRUE');
 
 INSERT INTO comments (text, user_id, request_id) VALUES 
-  ('comment1', 3, 2);
+  ('comment1', 3, 1);
 INSERT INTO comments (text, user_id, request_id) VALUES 
-  ('closed?', 2, 3);
+  ('closed?', 2, 2);
 INSERT INTO comments (text, user_id, request_id) VALUES 
-  ('closed?', 3, 4);
+  ('closed2?', 3, 3);
 
 COMMIT;

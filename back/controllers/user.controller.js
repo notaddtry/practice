@@ -39,13 +39,13 @@ class UserController {
     try {
       const data = await userService.login(req.body)
 
-      if (!data.rows.length) {
+      if (!data) {
         return res.status(400).json({
           message: 'Не существующее имя пользователя или пароль',
         })
       }
 
-      res.json(data.rows)
+      res.json(data)
     } catch (e) {
       res.status(400).json(
         e.message || {

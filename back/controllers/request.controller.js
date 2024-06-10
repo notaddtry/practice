@@ -41,6 +41,16 @@ class RequestController {
     }
   }
 
+  async getAllStudyDepartament(_, res) {
+    try {
+      const data = await requestService.getAllStudyDepartament()
+
+      res.json(data)
+    } catch (e) {
+      res.status(400).json(e.message || { message: 'Заявки не найдены' })
+    }
+  }
+
   async getOne(req, res) {
     try {
       const data = await requestService.getOne(req.params)

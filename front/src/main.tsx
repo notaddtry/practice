@@ -1,11 +1,11 @@
-import * as React from 'react'
-import * as ReactDOM from 'react-dom/client'
 import { ThemeProvider } from '@emotion/react'
 import { CssBaseline } from '@mui/material'
-import theme from './theme'
+import * as React from 'react'
+import * as ReactDOM from 'react-dom/client'
+import { Provider } from 'react-redux'
 import App from './App'
 import { store } from './store'
-import { Provider } from 'react-redux'
+import theme from './theme'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

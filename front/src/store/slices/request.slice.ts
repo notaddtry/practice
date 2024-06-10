@@ -1,26 +1,29 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import type { IRequest } from '../../types'
-import { request } from '../../utils/http'
+import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import type { IRequestWithSeen } from '../../types'
+import { request, seeRequest } from '../../utils/http'
 
 type InitialState = {
-  requests: IRequest[]
+  newRequests: IRequestWithSeen[]
   isNewNotification: boolean
 }
 
 const initialState: InitialState = {
-  requests: [],
+  newRequests: [],
   isNewNotification: false,
 }
 
 const slicePrefix = 'request'
 
-export const fetchMessages = createAsyncThunk(
-  `${slicePrefix}/fetchMessages`,
-  async (_, { rejectWithValue }) => {
+export const seeRequestHandler = createAsyncThunk(
+  `${slicePrefix}/seeRequest`,
+  async (
+    body: { user_id: number; request_id: number },
+    { rejectWithValue }
+  ) => {
     try {
-      const data = await fetch('/api/messages')
+      const res = await seeRequest(body)
 
-      return data
+      return res
     } catch (error) {
       return rejectWithValue(error)
     }
@@ -40,13 +43,29 @@ export const searchMessages = createAsyncThunk(
   }
 )
 
-const messageSlice = createSlice({
+const requestSlice = createSlice({
   name: slicePrefix,
   initialState,
-  reducers: {},
+  reducers: {
+    pushNewNotification(state, payload: PayloadAction<IRequestWithSeen[]>) {
+      state.newRequests = payload.payload
+      if (payload.payload.length) {
+        state.isNewNotification = true
+      }
+    },
+  },
   extraReducers: (builder) => {
-    builder
+    builder.addCase(seeRequestHandler.fulfilled, (state, action) => {
+      state.newRequests = state.newRequests.filter(
+        (req) => req.id !== (action.payload as IRequestWithSeen[])[0].id
+      )
+      if (!state.newRequests.length) {
+        state.isNewNotification = false
+      }
+    })
   },
 })
 
-export default messageSlice.reducer
+export default requestSlice.reducer
+
+export const { pushNewNotification } = requestSlice.actions

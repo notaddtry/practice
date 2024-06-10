@@ -3,7 +3,9 @@ const pool = require('../db/pool')
 class UserService {
   async getAll() {
     try {
-      const res = await pool.query('SELECT * FROM users;')
+      const res = await pool.query(`
+        SELECT * FROM users;
+        `)
 
       return res.rows
     } catch (error) {
@@ -12,13 +14,13 @@ class UserService {
     }
   }
 
-  async getOne({ user_id }) {
+  async getOne(body) {
     try {
       const user = await pool.query(
-        `SELECT * FROM users WHERE id = ${user_id};`
+        `SELECT * FROM users WHERE id = ${body.user_id};`
       )
 
-      const attr = await this.getOneAttribute({ user_id })
+      const attr = await this.getOneAttribute({ user_id: body.user_id })
 
       return { ...user.rows[0], ...attr }
     } catch (error) {
@@ -29,9 +31,9 @@ class UserService {
 
   async getOneAttribute({ user_id }) {
     try {
-      const attr = await pool.query(
-        `SELECT * FROM user_attr WHERE user_id = ${user_id};`
-      )
+      const attr = await pool.query(`
+        SELECT * FROM user_attr WHERE user_id = ${user_id};
+        `)
 
       return attr.rows[0]
     } catch (error) {
@@ -62,13 +64,15 @@ class UserService {
     }
   }
 
-  async login({ username, password }) {
+  async login(body) {
     try {
       const res = await pool.query(`
-        SELECT * FROM users WHERE username = '${username}' AND password = '${password}';
+        SELECT * FROM users WHERE username = '${body.username}' AND password = '${body.password}';
         `)
 
-      return res.rows
+      const attr = await this.getOneAttribute({ user_id: res.rows[0].id })
+
+      return { ...res.rows[0], ...attr }
     } catch (error) {
       console.log(error)
       throw new Error()
